@@ -2,9 +2,11 @@ const search = document.getElementById("search");
 const matchList = document.getElementById("match-list");
 const menu = document.getElementById("menu");
 const searchlabel = document.getElementById("searchlabel");
+const propslist = document.getElementById("theProps");
 let data;
 let theId;
-let colors = ["primary", "success", "info", "Warning", "danger"];
+const colors = ["primary", "success", "info", "Warning", "danger"];
+const len = colors.length;
 
 // add text for the html menu, filename without extension and the props that you want, first is query prop
 const menuItems = [
@@ -71,19 +73,24 @@ const searchdata = searchText => {
   outputHtml(matches);
 };
 
-const outputHtml = (matches, id) => {
+const showProps = () => {
+  propslist.innerHTML = menuItems[theId].props.join(", ");
+};
+
+const outputHtml = matches => {
   let txtstringBegin = ``;
   let txtstringEnd = ``;
   const propsarray = menuItems[theId].props;
   let cardtext = "";
 
   if (matches.length > 0) {
+    showProps();
     for (let index = 0; index < matches.length; index++) {
       let element = matches[index];
       cardtext += `<div class="card card-body mb-1"><h4> `;
       for (let index1 = 0; index1 < propsarray.length; index1++) {
         let prop = propsarray[index1];
-        cardtext += `<span class="text-${colors[index1]}">${
+        cardtext += `<span class="text-${colors[index1 % len]}">${
           element[prop]
         }, </span>`;
       }
@@ -99,6 +106,7 @@ function init(id) {
   // do some cleaning and resets
   matchList.innerHTML = "";
   search.value = "";
+  propslist.innerHTML = "";
   theId = +id;
   searchlabel.innerHTML = menuItems[theId].txt;
   console.log(menuItems[theId].filename);
