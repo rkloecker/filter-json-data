@@ -5,7 +5,8 @@ const searchlabel = document.getElementById("searchlabel");
 let data;
 let theId;
 let colors = ["primary", "success", "info", "Warning", "danger"];
-// const files = ["towns-states-germany.json"];
+
+// add text for the html menu, filename without extension and the props that you want, first is query prop
 const menuItems = [
   {
     txt: "Countries and Capitals",
@@ -52,7 +53,6 @@ const showSelectionMenu = () => {
 };
 
 const getdata = async file => {
-  // const res = await fetch("../data/data.json");
   const res = await fetch(`../data/${file}.json`);
   return await res.json();
 };
@@ -61,7 +61,6 @@ const searchdata = searchText => {
   // Get matches to current text input
   let matches = data.filter(el => {
     const regex = new RegExp(`^${searchText}`, "gi");
-    // return state.name.match(regex) || state.abbr.match(regex);
     return el[menuItems[theId].props[0]].match(regex);
   });
   // Clear when input or matches are empty
@@ -97,6 +96,7 @@ const outputHtml = (matches, id) => {
 
 // Init id and data
 function init(id) {
+  // do some cleaning and resets
   matchList.innerHTML = "";
   search.value = "";
   theId = +id;

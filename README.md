@@ -4,6 +4,8 @@
 
 ### how to use: add a data folder with json.files
 
+### generic solution, minimal configuration
+
 ### in index.js: add to 'menuItems' e.g.
 
 menuItems = [
